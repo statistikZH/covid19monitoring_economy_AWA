@@ -7,8 +7,8 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 
 
 <h2> Methodisches </h2>
-* Es können nur Firmen beim AWAZH eine Voranmeldung einreichen, wenn der Firmensitz im Kanton Zürich ist (Standortprinzip). Die von Kurzarbeit betroffenen Arbeitnehmenden, können ihren Wohnsitz jedohch überall haben.
 
+* Es können nur Firmen beim AWAZH eine Voranmeldung einreichen, wenn der Firmensitz im Kanton Zürich ist (Standortprinzip). Die von Kurzarbeit betroffenen Arbeitnehmenden, können ihren Wohnsitz jedoch überall haben.
 * Die Daten des AWAZH umfassen nur Kurzarbeits-Voranmeldungen von Firmen. Zu erwähnen ist vor allem, dass die Voranmeldungen von Selbständigen nicht vom AWAZH erfasst werden.
 * Aufgrund der Arbeitsprozesse kann es rückwirkend zu kleinen Veränderungen der Daten kommen. 
 
