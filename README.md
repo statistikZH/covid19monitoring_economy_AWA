@@ -1,3 +1,8 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
 # covid19monitoring_economy_AWA
 
 
@@ -14,7 +19,7 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 
 <h2> Variablen </h2>
 <strong>kurzarbeitzh_bew_unt </strong> = Anzahl der an Tag x bewilligte Voranmeldungen Kurzarbeit (=Anzahl Unternehmen)<br>
-<strong>kurzarbeitzh_bew_arbeitn</strong> = Anzahl, der von an Tag x von den bewilligten Voranmeldungen voraussichtlich betroffenen Arbeitenhmenden
+<strong>kurzarbeitzh_bew_arbeitn</strong> = Anzahl der voraussichtlich betroffenen Arbeitenhmenden der von an Tag x bewilligten Voranmeldungen 
 
 
 <h2> Weitere Informationen </h2>
