@@ -26,7 +26,7 @@ library(plotly)
 ```
 
 ```{r Daten einlesen und allgemeine Aufbereitungen,echo = T}
-dbc <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
+krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
   slice(-1) %>%
   rename_all(funs(c('date','kurzarbeitzh_bew_unt','kurzarbeitzh_bew_arbeitn')))%>%
   mutate(date = as.POSIXct(date, format = '%Y%m%d'))%>%
@@ -40,5 +40,8 @@ dbc <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...
          update = 'täglich',
          public = 'ja') %>%
     select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
+
+#Datensatz speichern
+write.csv(krzarbeit,'Economy_AWA.csv',row.names=F, fileEncoding = "UTF-8")
 
 ```
