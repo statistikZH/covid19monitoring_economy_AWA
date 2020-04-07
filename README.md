@@ -13,8 +13,8 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 * Aufgrund der Arbeitsprozesse kann es rückwirkend zu kleinen Veränderungen der Daten kommen. 
 
 <h2> Variablen </h2>
-<strong>kurzarbeitzh_bew_unt </strong> = Anzahl der an Tag x bewilligte Voranmeldungen Kurzarbeit von Unternehmen (=Anzahl Unternehmen)<br>
-<strong>kurzarbeitzh_bew_arbeitn</strong> = Anzahl der an Tag x von den bewilligten Voranmeldungen voraussichtlich betroffenen Arbeitenhmenden
+<strong>kurzarbeitzh_bew_unt </strong> = Anzahl der an Tag x bewilligte Voranmeldungen Kurzarbeit (=Anzahl Unternehmen)<br>
+<strong>kurzarbeitzh_bew_arbeitn</strong> = Anzahl, der von an Tag x von den bewilligten Voranmeldungen voraussichtlich betroffenen Arbeitenhmenden
 
 
 <h2> Weitere Informationen </h2>
