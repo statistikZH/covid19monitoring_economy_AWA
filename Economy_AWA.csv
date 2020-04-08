@@ -1,3 +1,5 @@
 "date","value","topic","variable_short","variable_long","location","unit","source","update","public","description"
 2020-04-06,1155,"Wirtschaft","kurzarbeitzh_bew_unt","Bewilligte Voranmeldungen Kurzarbeit Unternehmen","ZH","Anzahl","Amt für Wirtschaft und Arbeit Kanton Zürich","täglich","ja","https://github.com/statistikZH/covid19monitoring_economy_AWA"
 2020-04-06,15598,"Wirtschaft","kurzarbeitzh_bew_arbeitn","Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffen Arbeitn.","ZH","Anzahl","Amt für Wirtschaft und Arbeit Kanton Zürich","täglich","ja","https://github.com/statistikZH/covid19monitoring_economy_AWA"
+2020-04-07,768,"Wirtschaft","kurzarbeitzh_bew_unt","Bewilligte Voranmeldungen Kurzarbeit Unternehmen","ZH","Anzahl","Amt für Wirtschaft und Arbeit Kanton Zürich","täglich","ja","https://github.com/statistikZH/covid19monitoring_economy_AWA"
+2020-04-07,7333,"Wirtschaft","kurzarbeitzh_bew_arbeitn","Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffen Arbeitn.","ZH","Anzahl","Amt für Wirtschaft und Arbeit Kanton Zürich","täglich","ja","https://github.com/statistikZH/covid19monitoring_economy_AWA"
