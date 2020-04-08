@@ -2,14 +2,15 @@
 
 
 <h2> Grundlage </h2>
-Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) geliefert. Die Angaben beziehen sich auf die bewilligten Voranmeldungen zur Kurzarbeit des jeweiligen Tages. Eine bewilligte Voranmeldung erlaubt einem Unternehmen, für den Zeitraum der nächsten sechs Monate Kurzarbeitsgelder zu beantragen. Nicht jede Firma macht von diesem Recht Gebrauch. Es ist zudem auch möglich, dass die Angaben zur Anzahl der betroffenen Arbeitnehmemenden abweicht von der Anzahl Arbeitnehmenden, für die tätsächlich Kurzarbeitsgelder beantragt werden.
+Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) geliefert. Die Angaben beziehen sich auf die bewilligten Voranmeldungen zur Kurzarbeit des jeweiligen Tages für den Kanton Zürich. Eine bewilligte Voranmeldung erlaubt einem Betrieb, für den Zeitraum der nächsten sechs Monate Kurzarbeitsgelder zu beantragen. Es kann sein, dass ein Betrieb von diesem Recht nicht Gebrauch macht. Es ist zudem möglich, dass die Angaben zur Anzahl der voraussichtlich betroffenen Arbeitnehmenden abweicht von der Anzahl Arbeitnehmenden, für die später Kurzarbeitsgelder beantragt werden.
 
 
 
 <h2> Methodisches </h2>
 
-* Es können nur Firmen beim AWAZH eine Voranmeldung einreichen, wenn der Firmensitz im Kanton Zürich ist (Standortprinzip). Die von Kurzarbeit betroffenen Arbeitnehmenden, können ihren Wohnsitz jedoch überall haben.
-* Die Daten des AWAZH umfassen nur Kurzarbeits-Voranmeldungen von Firmen. Zu erwähnen ist vor allem, dass die Voranmeldungen von Selbständigen nicht vom AWAZH erfasst werden.
+* Es können nur Betriebsabteilungen beim AWAZH eine Voranmeldung einreichen, wenn der Sitz im Kanton Zürich ist (Standortprinzip).
+* Die voraussichtlich von Kurzarbeit betroffenen Arbeitnehmenden können ihren Wohnsitz überall haben, sie haben aber den Arbeitsplatz in der Regel im Kanton Zürich.
+* Die Daten des AWAZH umfassen nur Kurzarbeits-Voranmeldungen von Betrieben. Zu erwähnen ist vor allem, dass die Voranmeldungen von Selbständigen nicht vom AWAZH erfasst werden.
 * Aufgrund der Arbeitsprozesse kann es rückwirkend zu kleinen Veränderungen der Daten kommen. 
 
 <h2> Variablen </h2>
