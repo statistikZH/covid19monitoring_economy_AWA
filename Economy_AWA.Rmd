@@ -28,10 +28,10 @@ library(plotly)
 ```{r Daten einlesen und allgemeine Aufbereitungen,echo = T}
 krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
   slice(-1) %>%
-  rename_all(funs(c('date','kurzarbeitzh_bew_unt','kurzarbeitzh_bew_arbeitn')))%>%
+  rename_all(funs(c('date','kurzarbeitzh_bew_betrieb','kurzarbeitzh_bew_arbeitn')))%>%
   mutate(date = as.POSIXct(date, format = '%Y%m%d'))%>%
   tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
-  mutate(variable_long = ifelse(variable_short=='kurzarbeitzh_bew_unt','Bewilligte Voranmeldungen Kurzarbeit Unternehmen','Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffen Arbeitn.'),
+  mutate(variable_long = ifelse(variable_short=='kurzarbeitzh_bew_betrieb','Bewilligte Voranmeldungen Kurzarbeit Betriebe','Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.'),
          description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
          location = 'ZH',
          topic = 'Wirtschaft',
@@ -43,5 +43,5 @@ krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kant
 
 #Datensatz speichern
 write.csv(krzarbeit,'Economy_AWA.csv',row.names=F, fileEncoding = "UTF-8")
-
+View(krzarbeit)
 ```
