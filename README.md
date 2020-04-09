@@ -12,7 +12,7 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 
 ## Variablen 
 <strong>kurzarbeitzh_bew_betrieb </strong> = Anzahl der an Tag x bewilligte Voranmeldungen Kurzarbeit (=Anzahl Betriebe)<br>
-<strong>kurzarbeitzh_bew_arbeitn</strong> = Anzahl der voraussichtlich betroffenen Arbeitenhmenden der von an Tag x bewilligten Voranmeldungen 
+<strong>kurzarbeitzh_bew_arbeitn</strong> = Anzahl der voraussichtlich von den  an Tag x bewilligten Voranmeldungen betroffenen Arbeitnehmenden
 
 ## Weitere Informationen 
 [Projektseite: "Gesellschafsmonitoring COVID19"](https://github.com/statistikZH/covid19monitoring) <br>
