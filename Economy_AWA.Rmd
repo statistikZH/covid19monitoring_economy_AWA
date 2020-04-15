@@ -30,7 +30,8 @@ krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kant
   slice(-1) %>%
   rename_all(funs(c('date','kurzarbeitzh_bew_betrieb','kurzarbeitzh_bew_arbeitn')))%>%
   mutate(date = as.POSIXct(date, format = '%Y%m%d'))%>%
-  tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
+  #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
+  tidyr::gather('variable_short','value',-date)%>%
   mutate(variable_long = ifelse(variable_short=='kurzarbeitzh_bew_betrieb','Bewilligte Voranmeldungen Kurzarbeit Betriebe','Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.'),
          description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
          location = 'ZH',
