@@ -2,6 +2,9 @@
 
 <strong> Update vom 06.05.2020: Veraltete Datenreihe</strong> Aufgrund einer Anpassung der administrativen Prozesse wird die Datenreihe bis auf weiteres nicht aktualisiert. Die hier dargestellten Daten sind zudem nicht mehr aktuell und es können Abweichung zu den Daten bestehen, die vom Amt für Wirtschaft und Arbeit des Kantons Zürich kommuniziert werden. Die Zahlen des Amts für Wirtschaft und Arbeit sind massgebend. Die Daten hier sollten nicht mehr verwendet werden.
 
+Die Daten sind veraltet, weil Bewilligungsentscheide aufgrund von aktualisierten Bezugsbedingungen angepasst werden. So haben beispielsweise am Anfang des Monats März nicht alle Unternehmen für 6 Monate Kurzarbeit eingereicht sondern nur  für 3, weil dieser Bezugsrahmen erst später vom Bundesrat so freigegeben wurde. Diese Entscheide werden nur alle ersetzt. Die neuen Entscheide werden am Tag der Freigabe des neuen Entscheides rapportiert; gleichzeitig fallen diese Entscheide bei ursprünglich rapportierten Tag heraus.
+
+
 ## Grundlage 
 Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) geliefert. Die Angaben beziehen sich auf die bewilligten Voranmeldungen zur Kurzarbeit des jeweiligen Tages für den Kanton Zürich. Eine bewilligte Voranmeldung erlaubt einem Betrieb, für den Zeitraum der nächsten sechs Monate Kurzarbeitsgelder zu beantragen. Es kann sein, dass ein Betrieb von diesem Recht nicht Gebrauch macht. Es ist zudem möglich, dass die Angaben zur Anzahl der voraussichtlich betroffenen Arbeitnehmenden abweicht von der Anzahl Arbeitnehmenden, für die Kurzarbeitsgelder beantragt werden.<br><br>
 
