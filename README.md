@@ -2,7 +2,7 @@
 
 <strong> Update vom 06.05.2020: Veraltete Datenreihe</strong> Aufgrund einer Anpassung der administrativen Prozesse wird die Datenreihe bis auf weiteres nicht aktualisiert. Die hier dargestellten Daten sind zudem nicht mehr aktuell und es können Abweichung zu den Daten bestehen, die vom Amt für Wirtschaft und Arbeit des Kantons Zürich kommuniziert werden. Die Zahlen des Amts für Wirtschaft und Arbeit sind massgebend. Die Daten hier sollten nicht mehr verwendet werden.
 
-Die Daten sind veraltet, weil Bewilligungsentscheide aufgrund von aktualisierten Bezugsbedingungen angepasst werden. So haben beispielsweise am Anfang des Monats März nicht alle Unternehmen für 6 Monate Kurzarbeit eingereicht sondern nur  für 3, weil dieser Bezugsrahmen erst später vom Bundesrat so freigegeben wurde. Diese Entscheide werden nur alle ersetzt. Die neuen Entscheide werden am Tag der Freigabe des neuen Entscheides rapportiert; gleichzeitig fallen diese Entscheide bei ursprünglich rapportierten Tag heraus.
+Die Daten sind veraltet, weil Bewilligungsentscheide aufgrund von aktualisierten Bezugsbedingungen angepasst werden. So haben beispielsweise am Anfang des Monats März nicht alle Unternehmen für 6 Monate Kurzarbeit eingereicht sondern nur  für 3, weil dieser Bezugsrahmen erst später vom Bundesrat so freigegeben wurde. Diese Entscheide werden nur alle ersetzt. Die neuen Entscheide werden am Tag der Freigabe des neuen Entscheides rapportiert; gleichzeitig fallen diese Entscheide beim ursprünglich rapportierten Tag heraus.
 
 
 ## Grundlage 
