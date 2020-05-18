@@ -27,12 +27,12 @@ library(plotly)
 
 ```{r Daten einlesen und allgemeine Aufbereitungen,echo = T}
 krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
-  slice(-1) %>%
-  rename_all(funs(c('date','kurzarbeitzh_bew_betrieb','kurzarbeitzh_bew_arbeitn')))%>%
+  slice(-c(1,2)) %>%
+  rename_all(funs(c('date','kum_kurzarbeitzh_bew_betrieb','kum_kurzarbeitzh_bew_arbeitn')))%>%
   mutate(date = as.POSIXct(date, format = '%Y%m%d'))%>%
   #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
   tidyr::gather('variable_short','value',-date)%>%
-  mutate(variable_long = ifelse(variable_short=='kurzarbeitzh_bew_betrieb','Bewilligte Voranmeldungen Kurzarbeit Betriebe','Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.'),
+  mutate(variable_long = ifelse(variable_short=='kum_kurzarbeitzh_bew_betrieb','Kummulierte bewilligte Voranmeldungen Kurzarbeit Betriebe','Kummulierte bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.'),
          description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
          location = 'ZH',
          topic = 'Wirtschaft',
@@ -43,6 +43,26 @@ krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kant
     select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
 
 #Datensatz speichern
-write.csv(krzarbeit,'Economy_AWA.csv',row.names=F, fileEncoding = "UTF-8")
+write.csv(krzarbeit,'Economy_AWA_entwurf.csv',row.names=F, fileEncoding = "UTF-8")
 View(krzarbeit)
+
+
+#Bewilligte Gesuche: 20200301 - 20200405
+krzarbeit_bis5April <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
+  slice(2) %>%
+  rename_all(funs(c('date','kum_kurzarbeitzh_bew_betrieb_bis_5april','kum_kurzarbeitzh_bew_arbeitn_bis_5april')))%>%
+  #mutate(date = as.POSIXct(date, format = '%Y%m%d'))%>%
+  #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
+  tidyr::gather('variable_short','value',-date)%>%
+  mutate(variable_long = ifelse(variable_short=='kum_kurzarbeitzh_bew_betrieb_bis_5april','Kummuliertes Total Bewilligte Voranmeldungen Kurzarbeit Betriebe bis 5 April 2020','Kummuliertes Total Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn. bis 5. April 2020'),
+         description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
+         location = 'ZH',
+         topic = 'Wirtschaft',
+         unit = 'Anzahl',
+         source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
+         update = 'täglich',
+         public = 'ja') %>%
+    select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
+
+write.csv(krzarbeit_bis5April,'Economy_AWA_total_bis_5april_entwurf.csv',row.names=F, fileEncoding = "UTF-8")
 ```
