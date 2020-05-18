@@ -25,9 +25,6 @@ Aufgrund einer Anpassung der administrativen Prozesse werden die beiden folgenen
 Die Variablen werde nicht mehr aktualisiert, weil bereits erfolgte Bewilligungsentscheide aufgrund von veränderten Bezugsbedingungen angepasst werden. So haben beispielsweise am Anfang des Monats März nicht alle Unternehmen für 6 Monate Kurzarbeit eingereicht sondern nur  für 3, weil dieser Bezugsrahmen erst später vom Bundesrat so freigegeben wurde. Diese Entscheide werden nur alle ersetzt. Die neuen Entscheide werden am Tag der Freigabe des neuen Entscheides rapportiert; gleichzeitig fallen diese Entscheide beim ursprünglich rapportierten Tag heraus.
 
 
-
-
-
 ## Weitere Informationen 
 [Projektseite: "Gesellschafsmonitoring COVID19"](https://github.com/statistikZH/covid19monitoring) <br>
 [Datenbezug](https://www.web.statistik.zh.ch/covid19_indikatoren_uebersicht/#/) <br>
