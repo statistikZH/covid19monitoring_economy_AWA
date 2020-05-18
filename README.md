@@ -13,6 +13,9 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 * Für die Zeit vom 31. März bis 5. April liegen keine Tageswerte vor. Der kumulierte Stand an diesem Tag ist im CSV 'Economy_AWA_total_bis_5april' enthalten. Auch hier kann es rückwirkend zu Anpassungen kommen.
 
 ## Variablen 
+
+<strong> Diese Variablen werden gestestet und sind nicht für die Veröffentlichung bestimmt <strong>
+
 <strong>kum_kurzarbeitzh_bew_betrieb </strong> = Kumulierte bewilligte Voranmeldungen Kurzarbeit Betriebe<br>
 <strong>kum_kurzarbeitzh_bew_arbeitn</strong> = Kumulierte bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.
 
