@@ -14,8 +14,6 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 
 ## Variablen 
 
-<strong> Diese Variablen werden getestet und sind nicht für die Veröffentlichung bestimmt </strong>
-
 <strong>kum_kurzarbeitzh_bew_betrieb </strong> = Kumulierte bewilligte Voranmeldungen Kurzarbeit Betriebe<br>
 <strong>kum_kurzarbeitzh_bew_arbeitn</strong> = Kumulierte bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.
 
