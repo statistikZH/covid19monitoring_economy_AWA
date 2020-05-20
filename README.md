@@ -1,7 +1,5 @@
 # covid19monitoring_economy_AWA
 
-<strong>Update: Die Erhebung der Daten wir aktuell überarbeitet und die Datenreihe nicht mehr aktualisiert.</strong> 
-
 ## Grundlage 
 Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) geliefert. Die Angaben beziehen sich auf die kumulierten bewilligten Voranmeldungen zur Kurzarbeit des jeweiligen Tages für den Kanton Zürich. Eine bewilligte Voranmeldung erlaubt einem Betrieb, für den Zeitraum der nächsten sechs Monate Kurzarbeitsgelder zu beantragen. Es kann sein, dass ein Betrieb von diesem Recht nicht Gebrauch macht. Es ist zudem möglich, dass die Angaben zur Anzahl der voraussichtlich betroffenen Arbeitnehmenden abweicht von der Anzahl Arbeitnehmenden, für die Kurzarbeitsgelder beantragt werden.<br><br>
 
