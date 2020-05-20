@@ -10,7 +10,7 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 * Die voraussichtlich von Kurzarbeit betroffenen Arbeitnehmenden können ihren Wohnsitz auch ausserhalb des Kantons Zürich haben. 
 * Die Daten des AWAZH umfassen nur Kurzarbeits-Voranmeldungen von Betrieben. Zu erwähnen ist vor allem, dass die Voranmeldungen von Selbständigen nicht vom AWAZH erfasst werden.
 * Aufgrund der Arbeitsprozesse kann es rückwirkend zu Veränderungen der Daten kommen. 
-* Für die Zeit vom 31. März bis 5. April liegen keine Tageswerte vor. Der kumulierte Stand an diesem Tag ist im CSV 'Economy_AWA_total_bis_5april' enthalten. Auch hier kann es rückwirkend zu Anpassungen kommen.
+* Für die Zeit bis zum 5. April liegen keine Tageswerte vor. Der kumulierte Stand an diesem Tag ist im CSV 'Economy_AWA_total_bis_5april' enthalten. Auch hier kann es rückwirkend zu Anpassungen kommen.
 
 ## Variablen 
 
