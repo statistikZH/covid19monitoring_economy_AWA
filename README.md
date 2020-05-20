@@ -27,7 +27,7 @@ Aufgrund einer Anpassung der administrativen Prozesse werden die beiden folgende
 <strong>kurzarbeitzh_bew_betrieb </strong> = Anzahl der an Tag x bewilligte Voranmeldungen Kurzarbeit (=Anzahl Betriebe)<br>
 <strong>kurzarbeitzh_bew_arbeitn</strong> = Anzahl der voraussichtlich von den  an Tag x bewilligten Voranmeldungen betroffenen Arbeitnehmenden
 
-Die Variablen werde nicht mehr aktualisiert, weil bereits erfolgte Bewilligungsentscheide aufgrund von veränderten Bezugsbedingungen angepasst werden. So haben beispielsweise am Anfang des Monats März nicht alle Unternehmen für 6 Monate Kurzarbeit eingereicht, sondern nur  für 3, weil dieser Bezugsrahmen erst später vom Bundesrat so freigegeben wurde. Diese Entscheide werden nur alle ersetzt. Eine Fortführung der Zeitreihe macht deshalb inhaltlich keinen Sinn.
+Die Variablen werde nicht mehr aktualisiert, weil bereits erfolgte Bewilligungsentscheide aufgrund von veränderten Bezugsbedingungen angepasst werden. So haben beispielsweise am Anfang des Monats März nicht alle Unternehmen für 6 Monate Kurzarbeit eingereicht, sondern nur  für 3, weil dieser Bezugsrahmen erst später vom Bundesrat so freigegeben wurde. Diese Entscheide werden nun alle ersetzt. Eine Fortführung der Zeitreihe macht deshalb inhaltlich keinen Sinn.
 
 
 ## Weitere Informationen 
