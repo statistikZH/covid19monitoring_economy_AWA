@@ -43,7 +43,7 @@ krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kant
     select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
 
 #Datensatz speichern
-write.csv(krzarbeit,'Economy_AWA_entwurf.csv',row.names=F, fileEncoding = "UTF-8")
+write.csv(krzarbeit,'Economy_AWA.csv',row.names=F, fileEncoding = "UTF-8")
 View(krzarbeit)
 
 
@@ -64,5 +64,5 @@ krzarbeit_bis5April <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN tä
          public = 'ja') %>%
     select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
 
-write.csv(krzarbeit_bis5April,'Economy_AWA_total_bis_5april_entwurf.csv',row.names=F, fileEncoding = "UTF-8")
+write.csv(krzarbeit_bis5April,'Economy_AWA_total_bis_5april.csv',row.names=F, fileEncoding = "UTF-8")
 ```
