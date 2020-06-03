@@ -44,7 +44,7 @@ krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kant
 
 #Datensatz speichern
 write.csv(krzarbeit,'Economy_AWA.csv',row.names=F, fileEncoding = "UTF-8")
-View(krzarbeit)
+#View(krzarbeit)
 
 
 #Bewilligte Gesuche: 20200301 - 20200405
