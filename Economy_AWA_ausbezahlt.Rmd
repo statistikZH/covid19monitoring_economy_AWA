@@ -1,5 +1,5 @@
 ---
-title: "Economy_AWA"
+title: "Economy_AWA_ausbezahlt"
 subtitle: '-'
 output: 
   html_document:
@@ -26,74 +26,40 @@ library(plotly)
 library(statR)
 
 # db_connect.r
-source("P:/db_connect.r")
+source("P:/db_connect.r") #Zugangsdaten
 
 options(digits=4)
 ```
 
-```{r Daten einlesen und allgemeine Aufbereitungen,echo = T}
-krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
-  slice(-c(1,2)) %>%
-  rename_all(funs(c('date','kum_kurzarbeitzh_bew_betrieb','kum_kurzarbeitzh_bew_arbeitn')))%>%
-  mutate(date = as.POSIXct(date, format = '%Y%m%d'))%>%
-  #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
-  tidyr::gather('variable_short','value',-date)%>%
-  mutate(variable_long = ifelse(variable_short=='kum_kurzarbeitzh_bew_betrieb','Kumulierte bewilligte Voranmeldungen Kurzarbeit Betriebe','Kumulierte bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.'),
-         description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
-         location = 'ZH',
-         topic = 'Wirtschaft',
-         unit = 'Anzahl',
-         source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
-         update = 'wöchentlich',
-         public = 'ja') %>%
-    select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
-
-#Datensatz speichern
-write.csv(krzarbeit,'Economy_AWA.csv',row.names=F, fileEncoding = "UTF-8")
-#View(krzarbeit)
-
-#Bewilligte Gesuche: 20200301 - 20200405
-krzarbeit_bis5April <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
-  slice(2) %>%
-  rename_all(funs(c('date','kum_kurzarbeitzh_bew_betrieb_bis_5april','kum_kurzarbeitzh_bew_arbeitn_bis_5april')))%>%
-  mutate(date = as.POSIXct(substring(date,12,19), format = '%Y%m%d'))%>%
-  #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
-  tidyr::gather('variable_short','value',-date)%>%
-  mutate(variable_long = ifelse(variable_short=='kum_kurzarbeitzh_bew_betrieb_bis_5april','Kumuliertes Total Bewilligte Voranmeldungen Kurzarbeit Betriebe bis 5 April 2020','Kumuliertes Total Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn. bis 5. April 2020'),
-         description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
-         location = 'ZH',
-         topic = 'Wirtschaft',
-         unit = 'Anzahl',
-         source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
-         update = 'wöchentlich',
-         public = 'ja') %>%
-    select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
-
-write.csv(krzarbeit_bis5April,'Economy_AWA_total_bis_5april.csv',row.names=F, fileEncoding = "UTF-8")
-```
-
-
 ```{sql connection=statop, output.var = "statent"}
-
+--kein öffentlicher Datensatz
 select municipality_cd, noga082, statyear, sum(emptot) as emptot, sum(empfte) as empfte, count(*) as betriebe 
 from datashop.STATENT_AST_MV where statyear = 2017 and canton_cd = 'ZH'
 group by municipality_cd, statyear, noga082, emptot, empfte
 
 ```
 
-```{sql connection=statop, output.var = "statent_vgl"}
-
-select NOGA08_SECTION, statyear, sum(emptot) as emptot, sum(empfte) as empfte, count(*) as betriebe 
-from datashop.STATENT_AST_MV where statyear = 2017 and canton_cd = 'ZH'
-group by statyear, NOGA08_SECTION
-
-```
-
-
 ```{r Ausbezahlt: Daten einlesen und allgemeine Aufbereitungen,echo = T}
-krzarbeit_bezahlt <- read_xlsx('KAE Ausz KonPe KTZH.xlsx',sheet ='Tabelle1',skip = 1)
-month <-  names(krzarbeit_bezahlt)[2]
-year <- as.numeric(sub("\\D*(\\d{4}).*", "\\1", month))
+#Statent vorbereiten
+names(statent) <- tolower(names(statent))
+statent$noga082 <- as.numeric(statent$noga082)
+
+
+sheets <- excel_sheets('KAE Ausz KonPe KTZH.xlsx')
+datalist <- list()
+statentlist <- list()
+datalist_plot <-list()
+
+counter <- 0
+
+for(sh in sheets){
+counter <- counter + 1
+krzarbeit_bezahlt <- read_xlsx('KAE Ausz KonPe KTZH.xlsx',sheet =sh,skip = 1, na = c("NA",""))
+month_start <-  names(krzarbeit_bezahlt)[2]
+month <- gsub('[[:digit:]]','',month_start)
+month <- gsub(' ...','',month)
+
+year <- as.numeric(sub("\\D*(\\d{4}).*", "\\1", month_start))
 
 krzarb_bezahlt <- krzarbeit_bezahlt %>%
   mutate(month = names(.)[2]) %>%
@@ -102,6 +68,9 @@ krzarb_bezahlt <- krzarbeit_bezahlt %>%
   mutate(year = year)%>%
   select(colnames(.)[c(grep('[a-z]',colnames(.)))])%>%
   rename_all(funs(c('branche','kurzarbeitzh_ausbezahlt_betrieb','kurzarbeitzh_ausbezahlt_arbeitn','month','year')))%>%
+  
+  filter(!is.na(kurzarbeitzh_ausbezahlt_betrieb) | !is.na(kurzarbeitzh_ausbezahlt_arbeitn))%>%
+  
   mutate(branche_string = sub(".*: ", "", branche))%>%
   mutate(noga = sub(":.*", "", branche)) %>%
   mutate(noga_codes = tolower(noga),
@@ -116,14 +85,10 @@ krzarb_bezahlt <- krzarbeit_bezahlt %>%
          noga_absch = gsub('+','',noga_absch, fixed=T))%>%
   filter(branche!='Total')
 
-```
 
-```{r Anzahl Betriebe und Beschäftigte aus Statent}
 
-names(statent) <- tolower(names(statent))
-statent$noga082 <- as.numeric(statent$noga082)
+#Anzahl Betriebe und Beschäftigte aus Statent
 statent$nogagrp <- NA
-
 for(i in unique(krzarb_bezahlt$noga_codes)){
   
   statent$nogagrp_temp <- NA
@@ -138,40 +103,69 @@ for(i in unique(krzarb_bezahlt$noga_codes)){
                           statent$nogagrp)
   }else{
   }
-
 }
 
-View(statent)
-
-statent <- statent %>%
+#Die beschäftigten Zahlen aus Statent rauslesen
+statent2 <- statent %>%
   mutate(nogagrp = ifelse(is.na(nogagrp),'rest', nogagrp))%>%
   group_by(nogagrp)%>%
   summarise(betriebe = sum(betriebe),
             angestellte = sum(emptot))%>%
-  rename(noga_codes=nogagrp)
-```
+  rename(noga_codes=nogagrp)%>%
+  mutate(monat = print(month),
+         jahr = print(year))
 
-```{r Infos joinen}
+# Mit Statent verbinden
 krzarb_bezahlt2 <- krzarb_bezahlt%>%
-  left_join(statent, by='noga_codes')%>%
-  mutate(share_arbeitn = kurzarbeitzh_ausbezahlt_arbeitn/angestellte,
-         share_betriebe = kurzarbeitzh_ausbezahlt_betrieb/betriebe) %>%
+  left_join(statent2, by='noga_codes')%>%
+  select(-monat,-jahr)%>%
+  mutate(share_ausbezahlt_besch  = kurzarbeitzh_ausbezahlt_arbeitn/angestellte,
+         share_ausbezahlt_betriebe = kurzarbeitzh_ausbezahlt_betrieb/betriebe) %>%
   #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
   tidyr::gather('variable_short','value',-month,-year,-branche,-branche_string,-noga,-noga_codes,-noga_absch, -angestellte,-betriebe)%>%
-  mutate(variable_long = ifelse(variable_short=='kurzarbeitzh_ausbezahlt_betrieb','Kurzarbeit ausbezahlt Anzahl Betriebe','Kurzarbeit ausbezahlt Anzahl Arbeitnehmende'),
+  
+  mutate(variable_long = case_when(
+    variable_short=='kurzarbeitzh_ausbezahlt_betrieb' ~ 'Kurzarbeit ausbezahlt Anzahl Betriebe',
+    variable_short=='kurzarbeitzh_ausbezahlt_arbeitn' ~ 'Kurzarbeit ausbezahlt Anzahl Beschäftigte',
+    variable_short=='share_ausbezahlt_besch' ~ 'Anteil Beschäftigte',
+    variable_short=='share_ausbezahlt_betriebe' ~ 'Anteil Betriebe',
+     TRUE ~ 'NA'),
+
+    variable_short = ifelse(variable_short == 'kurzarbeitzh_ausbezahlt_arbeitn', 'kurzarbeitzh_ausbezahlt_besch', variable_short),
          description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
          location = 'ZH',
          topic = 'Wirtschaft',
-         unit = 'Anzahl',
+         unit = ifelse(grepl('share_',variable_short),'Anteil','Anzahl'),
          source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
          update = 'monatlich',
-         public = 'ja',
-         accounting_period = paste0(month,' ',year)) %>%
-    select(topic,year,month,value,variable_short,variable_long,location,branche,branche_string,noga,noga_codes,public,description,unit,source,update)
+         public = 'ja') %>%
+    select(topic,year,month,value,variable_short,variable_long,location,branche_string,noga,public,description,unit,source,update)
+
+datalist[[counter]] <- krzarb_bezahlt2
+statentlist[[counter]] <- statent2
+
+datalist_plot[[counter]] <- krzarb_bezahlt
+
+}
+
+Economy_AWA_ausbezahlt <- do.call(rbind, datalist)
+
+#Welche NOGA_Dodes sind stabil, bzw. werden in jedem Monat für die Statentauswertung benutzt
+Statent_Codes <- do.call(rbind, statentlist)
+Statent_Codes_stabil <- data.frame(table(Statent_Codes$noga_codes))
+Statent_Codes <- merge(Statent_Codes,Statent_Codes_stabil, by.x='noga_codes',by.y='Var1')
+Statent_Codes$valid <- ifelse(Statent_Codes$Freq==max(Statent_Codes$Freq),1,0)
+Statent_Codes <- Statent_Codes%>%
+  rename(year=jahr,month=monat)
+
+#Dies ist der Ausgangsdatensatz, um Zweireihen zu produzieren
+Economy_AWA_ausbezahlt_plotstart <- do.call(rbind, datalist_plot) 
+
 
 #Datensatz speichern
-write.csv(krzarb_bezahlt2,'Economy_AWA_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
+write.csv(Economy_AWA_ausbezahlt,'Economy_AWA_kurzarbeit_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
 #View(krzarbeit)
+
 
 ```
 
@@ -182,20 +176,24 @@ select ABSCHNITTE as noga_absch, NOGA2008_DESC as noga_string from OEC.NOGA2008_
 ```{r Plots}
 names(noga_abschnitte) <- tolower(names(noga_abschnitte))
 
-pldf <- krzarb_bezahlt%>%
-  left_join(statent, by='noga_codes')%>%
+
+pldf <-  Economy_AWA_ausbezahlt_plotstart%>%
+  left_join(Statent_Codes, by=c('noga_codes','month','year'))%>%
   left_join(noga_abschnitte, by='noga_absch')%>%
+ 
+  mutate(noga_absch = ifelse(noga_codes %in% Statent_Codes$noga_codes[Statent_Codes$valid==1],noga_absch,'Rest'))%>%
   mutate(noga_string = ifelse(noga_absch == 'Rest','Andere',noga_string))%>%
   mutate(noga_absch = ifelse(noga_absch == 'Rest','X',noga_absch))%>%
-  
+    
   group_by(noga_absch, month, year,noga_string)%>%
   
   summarise(kurzarbeitzh_ausbezahlt_betrieb = sum(kurzarbeitzh_ausbezahlt_betrieb),
             kurzarbeitzh_ausbezahlt_arbeitn = sum(kurzarbeitzh_ausbezahlt_arbeitn),
             anz_betriebe = sum(betriebe),
             anz_angestellte = sum(angestellte))%>%
-  mutate(share_arbeitn = kurzarbeitzh_ausbezahlt_arbeitn/anz_angestellte,
-         share_betriebe = kurzarbeitzh_ausbezahlt_betrieb/anz_betriebe)%>%
+  
+  mutate(share_ausbezahlt_arbeitn = kurzarbeitzh_ausbezahlt_arbeitn/anz_angestellte,
+         share__ausbezahlt_betriebe = kurzarbeitzh_ausbezahlt_betrieb/anz_betriebe)%>%
   mutate(noga_string = case_when(
     noga_string == 'Land- und Forstwirtschaft, Fischerei' ~ 'Land- und Forstwirtschaft',
     noga_string == 'Verarbeitendes Gewerbe/Herstellung von Waren' ~  'Verarbeitendes und herstellendes Gewerbe\n(ohne Fahrzeug- und Automobilproduktion)',
@@ -211,11 +209,12 @@ pldf <- krzarb_bezahlt%>%
 
    tidyr::gather('variable_short','value',-month,-year,-noga_absch, -noga_string, -anz_angestellte,-anz_betriebe, -kurzarbeitzh_ausbezahlt_betrieb,-kurzarbeitzh_ausbezahlt_arbeitn)%>%
   
-  mutate(label = paste0(round(value*100,1),' %'))%>%
-  mutate(variable_short = ifelse(variable_short=='share_arbeitn','Anteil Angestellte','Anteil Betriebe'))
+  mutate(label = paste0(round(value*100,2),' %'))%>%
+  mutate(variable_short = ifelse(variable_short=='share_ausbezahlt_arbeitn','Anteil Beschäftigte','Anteil Betriebe'),
+         month = factor(month, levels = c('April',
+                                          'März')))
   
-
-ggplot(pldf,aes(noga_string,value,fill=variable_short))+
+ggplot(pldf,aes(noga_string,value,fill=month))+
   geom_col(position = 'dodge')+
   geom_text(aes(label = label, y = (value+0.01)),position = position_dodge(width = 1),size=8, hjust=0)+
   scale_y_continuous(labels = scales::percent, limits=c(0,1))+
@@ -223,31 +222,68 @@ ggplot(pldf,aes(noga_string,value,fill=variable_short))+
   
   labs(y = NULL, 
        x = NULL, 
-       title = "Kurzarbeitsentschädigung für den März 2020 im Kanton Zürich nach Branchen\n",
+       title = "Kurzarbeitsentschädigung im Kanton Zürich nach Branchen\n",
        subtitle = NULL,
        caption = paste0('\nDaten: Amt für Wirtschaft und Arbeit Kanton Zürich / STATENT 2017'))+
   
   theme_stat()+
-  scale_fill_manual(values=zhpal$zh[c(1,3)])+
+  facet_wrap(~variable_short)+
+  scale_fill_manual(values=zhpal$zh[c(1,3)], breaks= c('März','April'))+
     theme(legend.position = "top",
         legend.title=element_blank()) +
-  theme(#panel.grid = element_blank()
+  theme(
     axis.line = element_line(color="black", size = 1),
     axis.text = element_text(color="black", size = 25,face = "bold"),
     axis.title = element_text(color="black", size = 25,face = "bold"),
     axis.ticks.y = element_blank(),
   
-    plot.title = element_text(color="black", size = 40,face = "bold",hjust = +1.5),
+    plot.title = element_text(color="black", size = 40,face = "bold",hjust = +0.5),
+    plot.caption= element_text(color="black", size=20),
     
-
     legend.title=element_blank(),
-    legend.text= element_text(color="black", size=25),
+    legend.text= element_text(color="black", size=15),
+    legend.key.size = unit(2,"line"),
+    
+    strip.text.x = element_text(color="black", size = 30,face = "bold"))
 
-    legend.key.size = unit(3.5,"line"),
-    plot.caption= element_text(color="black", size=20))
+ggsave('plots/Economy_AWA_ausbezahlt_branchen_short_two_months2.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
 
-ggsave('plots/Economy_AWA_maerz_ausbezahlt_branchen_short.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
+```
 
+```{r tweet plot}
+ggplot(pldf[pldf$month=='April',],aes(noga_string,value,fill=variable_short))+
+  geom_col(position = 'dodge')+
+  geom_text(aes(label = label, y = (value+0.01)),position = position_dodge(width = 1),size=8, hjust=0)+
+  scale_y_continuous(labels = scales::percent, limits=c(0,1))+
+  coord_flip()+
+  
+  labs(y = NULL, 
+       x = NULL, 
+       title = "Kurzarbeitsentschädigung im Kanton Zürich nach Branchen: April 2020\n",
+       subtitle = NULL,
+       caption = paste0('\nDaten: Amt für Wirtschaft und Arbeit Kanton Zürich / STATENT 2017'))+
+  
+  theme_stat()+
+  
+  scale_fill_manual(values=zhpal$zh[c(1,3)], breaks= c('Anteil Betriebe','Anteil Beschäftigte'))+
+    theme(legend.position = "top",
+        legend.title=element_blank()) +
+  theme(
+    axis.line = element_line(color="black", size = 1),
+    axis.text = element_text(color="black", size = 25,face = "bold"),
+    axis.title = element_text(color="black", size = 25,face = "bold"),
+    axis.ticks.y = element_blank(),
+  
+    plot.title = element_text(color="black", size = 40,face = "bold",hjust = +0.5),
+    plot.caption= element_text(color="black", size=20),
+    
+    legend.title=element_blank(),
+    legend.text= element_text(color="black", size=15),
+    legend.key.size = unit(2,"line"),
+    
+    strip.text.x = element_text(color="black", size = 30,face = "bold"))
+
+ggsave('plots/Economy_AWA_ausbezahlt_branchen_tweet2.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
 ```
 
 

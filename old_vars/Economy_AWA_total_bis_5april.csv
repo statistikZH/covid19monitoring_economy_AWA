@@ -1,0 +1,3 @@
+"date","value","topic","variable_short","variable_long","location","unit","source","update","public","description"
+2020-04-05,11886,"Wirtschaft","kum_kurzarbeitzh_bew_betrieb_bis_5april","Kumuliertes Total Bewilligte Voranmeldungen Kurzarbeit Betriebe bis 5 April 2020","ZH","Anzahl","Amt für Wirtschaft und Arbeit Kanton Zürich","wöchentlich","ja","https://github.com/statistikZH/covid19monitoring_economy_AWA"
+2020-04-05,114520,"Wirtschaft","kum_kurzarbeitzh_bew_arbeitn_bis_5april","Kumuliertes Total Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn. bis 5. April 2020","ZH","Anzahl","Amt für Wirtschaft und Arbeit Kanton Zürich","wöchentlich","ja","https://github.com/statistikZH/covid19monitoring_economy_AWA"
