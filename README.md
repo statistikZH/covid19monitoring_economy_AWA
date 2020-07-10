@@ -11,8 +11,8 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 * Da die Betriebe eine Kontrollperiode bis zu 3 Monate rückwirkend abrechnen können, sind die Daten erst mit 3-monatiger Verspätung stabil. Rückwirkende Anpassungen sind jedoch weiterhin möglich.
 
 ## Variablen 
-<strong>kurzarbeitzh_ausbezahlt_betrieb</strong> = Kurzarbeit ausbezahlt Anzahl Betriebe<br>
-<strong>kurzarbeitzh_ausbezahlt_besch</strong> = Kurzarbeit ausbezahlt Anzahl Beschäftigte<br>
+<strong>anz_ausbezahlt_betrieb</strong> = Kurzarbeit ausbezahlt Anzahl Betriebe<br>
+<strong>anz_ausbezahlt_besch</strong> = Kurzarbeit ausbezahlt Anzahl Beschäftigte<br>
 <strong>share_ausbezahlt_betriebe</strong> = Anteil der ausbezahlten Betriebe an allen Betrieben auf Basis STATENT 2017<br>
 <strong>share_ausbezahlt_besch</strong> = Anteil der ausbezahlten Beschäftigten an allen Beschäftigen auf Basis STATENT 2017<br>
 
