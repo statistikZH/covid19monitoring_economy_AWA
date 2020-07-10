@@ -13,7 +13,7 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 ## Variablen 
 <strong>kurzarbeitzh_ausbezahlt_betrieb</strong> = Kurzarbeit ausbezahlt Anzahl Betriebe<br>
 <strong>kurzarbeitzh_ausbezahlt_besch</strong> = Kurzarbeit ausbezahlt Anzahl Beschäftigte<br>
-<strong>share_ausbezahlt_betriebe</strong> = Anteil der ausbezahlten Betreibe an allen Betrieben auf Basis STATENT 2017<br>
+<strong>share_ausbezahlt_betriebe</strong> = Anteil der ausbezahlten Betriebe an allen Betrieben auf Basis STATENT 2017<br>
 <strong>share_ausbezahlt_besch</strong> = Anteil der ausbezahlten Beschäftigten an allen Beschäftigen auf Basis STATENT 2017<br>
 
 ## Nicht mehr aktualisierte Datensätze
