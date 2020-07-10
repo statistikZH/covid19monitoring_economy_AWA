@@ -161,7 +161,6 @@ Statent_Codes <- Statent_Codes%>%
 #Dies ist der Ausgangsdatensatz, um Zweireihen zu produzieren
 Economy_AWA_ausbezahlt_plotstart <- do.call(rbind, datalist_plot) 
 
-
 #Datensatz speichern
 write.csv(Economy_AWA_ausbezahlt,'Economy_AWA_kurzarbeit_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
 #View(krzarbeit)
@@ -209,7 +208,7 @@ pldf <-  Economy_AWA_ausbezahlt_plotstart%>%
 
    tidyr::gather('variable_short','value',-month,-year,-noga_absch, -noga_string, -anz_angestellte,-anz_betriebe, -anz_ausbezahlt_betrieb,-anz_ausbezahlt_arbeitn)%>%
   
-  mutate(label = paste0(round(value*100,2),' %'))%>%
+  mutate(label = paste0(round(value*100,1),' %'))%>%
   mutate(variable_short = ifelse(variable_short=='share_ausbezahlt_arbeitn','Anteil Beschäftigte','Anteil Betriebe'),
          month = factor(month, levels = c('April',
                                           'März')))
@@ -246,7 +245,7 @@ ggplot(pldf,aes(noga_string,value,fill=month))+
     
     strip.text.x = element_text(color="black", size = 30,face = "bold"))
 
-ggsave('plots/Economy_AWA_ausbezahlt_branchen_short_two_months2.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
+ggsave('plots/Economy_AWA_ausbezahlt_branchen_short_two_months.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
 
 ```
 
@@ -283,7 +282,7 @@ ggplot(pldf[pldf$month=='April',],aes(noga_string,value,fill=variable_short))+
     
     strip.text.x = element_text(color="black", size = 30,face = "bold"))
 
-ggsave('plots/Economy_AWA_ausbezahlt_branchen_tweet2.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
+ggsave('plots/Economy_AWA_ausbezahlt_branchen_tweet.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
 ```
 
 
