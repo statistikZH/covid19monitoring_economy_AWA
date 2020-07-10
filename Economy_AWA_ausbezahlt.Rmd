@@ -86,7 +86,6 @@ krzarb_bezahlt <- krzarbeit_bezahlt %>%
   filter(branche!='Total')
 
 
-
 #Anzahl Betriebe und Beschäftigte aus Statent
 statent$nogagrp <- NA
 for(i in unique(krzarb_bezahlt$noga_codes)){
@@ -127,7 +126,8 @@ krzarb_bezahlt2 <- krzarb_bezahlt%>%
           year = unique(year),
           branche_string = 'Alle Branchen',
           angestellte = sum(.$angestellte),
-          betriebe = sum(.$betriebe))
+          betriebe = sum(.$betriebe),
+          noga = 'Alle Branchen')%>%
   
   mutate(share_ausbezahlt_besch  = round(anz_ausbezahlt_arbeitn/angestellte,2),
          share_ausbezahlt_betriebe = round(anz_ausbezahlt_betrieb/betriebe,2)) %>%
@@ -153,7 +153,7 @@ krzarb_bezahlt2 <- krzarb_bezahlt%>%
          public = 'ja') %>%
     select(topic,year,month,value,variable_short,variable_long,location,branche_string,noga,public,description,unit,source,update)
 
-datalist[[counter]] <- krzarb_bezahlt2
+datalist[[counter]] <- krzarb_bezahlt2[krzarb_bezahlt2$noga!='Rest',]
 statentlist[[counter]] <- statent2
 
 datalist_plot[[counter]] <- krzarb_bezahlt

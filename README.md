@@ -4,7 +4,8 @@
 Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) geliefert und stammen aus dem Auszahlungssystem der Arbeitslosenkassen. Die Angaben beziehen sich auf die Anzahl der Betriebe und Beschäftigten, an die für den entsprechenden Monat Kurzarbeitsentschädigungsgelder ausbezahlt wurden.<br><br>
 
 ## Methodisches 
-* Um möglichst detaillierte Daten zu veröffentlichen, werden pro Monat alle Branchen-Kategorien ausgewiesen, die für den jeweiligen Monat für mind. 10 Betriebe und mind. 100 Beschäftigte Kurzarbeitsgelder erhalten haben. Wenn eine Branche in einem Monat tiefere Zahlen ausweist, wird sie nicht separat aufgeführt, sondern der Restkategorie zugeteilt.  Dies hat zur Folge, dass nicht immer die gleiche Anzahl Branchen ausgewiesen wird.
+* Um möglichst detaillierte Daten zu veröffentlichen, werden pro Monat alle Branchen-Kategorien ausgewiesen, die für den jeweiligen Monat für mind. 10 Betriebe und mind. 100 Beschäftigte Kurzarbeitsgelder erhalten haben. Dies hat zur Folge, dass nicht immer die gleiche Anzahl Branchen ausgewiesen wird. 
+* Unter 'Alle Branchen' wird das Gesamtotal ausgewiesen inklusive der Branchen, die aufgrund der Fallzahlen nicht separat ausgewiesen werden.
 * Es werden Betriebe bzw. Betriebsabteilungen mit Sitz im Kanton Zürich berücksichtigt (Standortprinzip, wobei der Eintrag im Betriebs- und Unternehmensregister (BUR) massgebend ist).
 * Von Kurzarbeit betroffene Beschäftigte können ihren Wohnsitz auch ausserhalb des Kantons Zürich haben.
 * Die Daten des AWAZH umfassen Zahlungen an Betriebe, insbesondere Zahlungen an Selbständige werden nicht vom AWAZH erfasst, sondern werden über die SVA Zürich im Rahmen der Erwerbsersatzordnung EO abgewickelt. 
