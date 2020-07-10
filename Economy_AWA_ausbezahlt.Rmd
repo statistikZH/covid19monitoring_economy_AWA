@@ -67,9 +67,9 @@ krzarb_bezahlt <- krzarbeit_bezahlt %>%
   mutate(month = gsub(' ...','',month))%>%
   mutate(year = year)%>%
   select(colnames(.)[c(grep('[a-z]',colnames(.)))])%>%
-  rename_all(funs(c('branche','kurzarbeitzh_ausbezahlt_betrieb','kurzarbeitzh_ausbezahlt_arbeitn','month','year')))%>%
+  rename_all(funs(c('branche','anz_ausbezahlt_betrieb','anz_ausbezahlt_arbeitn','month','year')))%>%
   
-  filter(!is.na(kurzarbeitzh_ausbezahlt_betrieb) | !is.na(kurzarbeitzh_ausbezahlt_arbeitn))%>%
+  filter(!is.na(anz_ausbezahlt_betrieb) | !is.na(anz_ausbezahlt_arbeitn))%>%
   
   mutate(branche_string = sub(".*: ", "", branche))%>%
   mutate(noga = sub(":.*", "", branche)) %>%
@@ -119,19 +119,19 @@ statent2 <- statent %>%
 krzarb_bezahlt2 <- krzarb_bezahlt%>%
   left_join(statent2, by='noga_codes')%>%
   select(-monat,-jahr)%>%
-  mutate(share_ausbezahlt_besch  = kurzarbeitzh_ausbezahlt_arbeitn/angestellte,
-         share_ausbezahlt_betriebe = kurzarbeitzh_ausbezahlt_betrieb/betriebe) %>%
+  mutate(share_ausbezahlt_besch  = round(anz_ausbezahlt_arbeitn/angestellte,2),
+         share_ausbezahlt_betriebe = round(anz_ausbezahlt_betrieb/betriebe,2)) %>%
   #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
   tidyr::gather('variable_short','value',-month,-year,-branche,-branche_string,-noga,-noga_codes,-noga_absch, -angestellte,-betriebe)%>%
   
   mutate(variable_long = case_when(
-    variable_short=='kurzarbeitzh_ausbezahlt_betrieb' ~ 'Kurzarbeit ausbezahlt Anzahl Betriebe',
-    variable_short=='kurzarbeitzh_ausbezahlt_arbeitn' ~ 'Kurzarbeit ausbezahlt Anzahl Beschäftigte',
-    variable_short=='share_ausbezahlt_besch' ~ 'Anteil Beschäftigte',
-    variable_short=='share_ausbezahlt_betriebe' ~ 'Anteil Betriebe',
+    variable_short=='anz_ausbezahlt_betrieb' ~ 'Kurzarbeit ausbezahlt Anzahl Betriebe',
+    variable_short=='anz_ausbezahlt_arbeitn' ~ 'Kurzarbeit ausbezahlt Anzahl Beschäftigte',
+    variable_short=='share_ausbezahlt_besch' ~ 'Kurzarbeit ausbezahlt Anteil Beschäftigte',
+    variable_short=='share_ausbezahlt_betriebe' ~ 'Kurzarbeit ausbezahlt Anteil Betriebe',
      TRUE ~ 'NA'),
 
-    variable_short = ifelse(variable_short == 'kurzarbeitzh_ausbezahlt_arbeitn', 'kurzarbeitzh_ausbezahlt_besch', variable_short),
+    variable_short = ifelse(variable_short == 'anz_ausbezahlt_arbeitn', 'anz_ausbezahlt_besch', variable_short),
          description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
          location = 'ZH',
          topic = 'Wirtschaft',
@@ -187,13 +187,13 @@ pldf <-  Economy_AWA_ausbezahlt_plotstart%>%
     
   group_by(noga_absch, month, year,noga_string)%>%
   
-  summarise(kurzarbeitzh_ausbezahlt_betrieb = sum(kurzarbeitzh_ausbezahlt_betrieb),
-            kurzarbeitzh_ausbezahlt_arbeitn = sum(kurzarbeitzh_ausbezahlt_arbeitn),
+  summarise(anz_ausbezahlt_betrieb = sum(anz_ausbezahlt_betrieb),
+            anz_ausbezahlt_arbeitn = sum(anz_ausbezahlt_arbeitn),
             anz_betriebe = sum(betriebe),
             anz_angestellte = sum(angestellte))%>%
   
-  mutate(share_ausbezahlt_arbeitn = kurzarbeitzh_ausbezahlt_arbeitn/anz_angestellte,
-         share__ausbezahlt_betriebe = kurzarbeitzh_ausbezahlt_betrieb/anz_betriebe)%>%
+  mutate(share_ausbezahlt_arbeitn = anz_ausbezahlt_arbeitn/anz_angestellte,
+         share__ausbezahlt_betriebe = anz_ausbezahlt_betrieb/anz_betriebe)%>%
   mutate(noga_string = case_when(
     noga_string == 'Land- und Forstwirtschaft, Fischerei' ~ 'Land- und Forstwirtschaft',
     noga_string == 'Verarbeitendes Gewerbe/Herstellung von Waren' ~  'Verarbeitendes und herstellendes Gewerbe\n(ohne Fahrzeug- und Automobilproduktion)',
@@ -207,7 +207,7 @@ pldf <-  Economy_AWA_ausbezahlt_plotstart%>%
   ungroup()%>%
   mutate(noga_string = forcats::fct_reorder(noga_string, desc(noga_absch)))%>%
 
-   tidyr::gather('variable_short','value',-month,-year,-noga_absch, -noga_string, -anz_angestellte,-anz_betriebe, -kurzarbeitzh_ausbezahlt_betrieb,-kurzarbeitzh_ausbezahlt_arbeitn)%>%
+   tidyr::gather('variable_short','value',-month,-year,-noga_absch, -noga_string, -anz_angestellte,-anz_betriebe, -anz_ausbezahlt_betrieb,-anz_ausbezahlt_arbeitn)%>%
   
   mutate(label = paste0(round(value*100,2),' %'))%>%
   mutate(variable_short = ifelse(variable_short=='share_ausbezahlt_arbeitn','Anteil Beschäftigte','Anteil Betriebe'),
