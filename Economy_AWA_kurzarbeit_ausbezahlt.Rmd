@@ -44,7 +44,6 @@ group by municipality_cd, statyear, noga082, emptot, empfte
 names(statent) <- tolower(names(statent))
 statent$noga082 <- as.numeric(statent$noga082)
 
-
 sheets <- excel_sheets('KAE Ausz KonPe KTZH.xlsx')
 datalist <- list()
 statentlist <- list()
@@ -153,7 +152,7 @@ krzarb_bezahlt2 <- krzarb_bezahlt%>%
          public = 'ja') %>%
     select(topic,year,month,value,variable_short,variable_long,location,branche_string,noga,public,description,unit,source,update)
 
-datalist[[counter]] <- krzarb_bezahlt2[krzarb_bezahlt2$noga!='Rest',]
+datalist[[counter]] <- krzarb_bezahlt2[krzarb_bezahlt2$noga!='Rest' & !krzarb_bezahlt2$variable_short %in% c('share_ausbezahlt_besch','share_ausbezahlt_betriebe') ,]
 statentlist[[counter]] <- statent2
 
 datalist_plot[[counter]] <- krzarb_bezahlt

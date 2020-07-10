@@ -14,8 +14,7 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 ## Variablen 
 <strong>anz_ausbezahlt_betrieb</strong> = Kurzarbeit ausbezahlt Anzahl Betriebe<br>
 <strong>anz_ausbezahlt_besch</strong> = Kurzarbeit ausbezahlt Anzahl Beschäftigte<br>
-<strong>share_ausbezahlt_betriebe</strong> = Anteil der ausbezahlten Betriebe an allen Betrieben auf Basis STATENT 2017<br>
-<strong>share_ausbezahlt_besch</strong> = Anteil der ausbezahlten Beschäftigten an allen Beschäftigen auf Basis STATENT 2017<br>
+
 
 ## Nicht mehr aktualisierte Datensätze
 Bis zum Zeitpunkt an dem erstmals Angaben zu den Auszahlungen vorlagen, wurden an dieser Stellen Daten zu den bewilligten Voranmeldungen publiziert. Diese Datenreihen werden nicht mehr fortgeführt, weil nun mit Angaben zu den Auszahlungen Daten zum tatsächlichen Ausmass der Kurzarbeit vorliegen. Informationen zum gegenwärtigen Stand der Voranmeldungen können beim Amt für Wirtschaft und Arbeit des Kantons Zürich nachgefragt werden. Die Informationen zu den alten Variablen sind im Ordner old_vars abgelegt.
