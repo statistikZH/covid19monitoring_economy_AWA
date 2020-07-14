@@ -122,6 +122,10 @@ krzarb_bezahlt2 <- krzarb_bezahlt%>%
   mutate(share_ausbezahlt_besch  = round(anz_ausbezahlt_arbeitn/angestellte,2),
          share_ausbezahlt_betriebe = round(anz_ausbezahlt_betrieb/betriebe,2)) %>%
   #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
+  
+  
+  
+  
   tidyr::gather('variable_short','value',-month,-year,-branche,-branche_string,-noga,-noga_codes,-noga_absch, -angestellte,-betriebe)%>%
   
   mutate(variable_long = case_when(
