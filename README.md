@@ -19,8 +19,5 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 ## Nicht mehr aktualisierte Datensätze
 Bis zum Zeitpunkt an dem erstmals Angaben zu den Auszahlungen vorlagen, wurden an dieser Stellen Daten zu den bewilligten Voranmeldungen publiziert. Diese Datenreihen werden nicht mehr fortgeführt, weil nun mit Angaben zu den Auszahlungen Daten zum tatsächlichen Ausmass der Kurzarbeit vorliegen. Informationen zum gegenwärtigen Stand der Voranmeldungen können beim Amt für Wirtschaft und Arbeit des Kantons Zürich nachgefragt werden. Die Informationen zu den alten Variablen sind im Ordner old_vars abgelegt.
 
-## Weitere Informationen 
-[Projektseite: "Gesellschafsmonitoring COVID19"](https://github.com/statistikZH/covid19monitoring) <br>
-[Datenbezug](https://www.web.statistik.zh.ch/covid19_indikatoren_uebersicht/#/) <br>
-[Visualisierung](https://www.web.statistik.zh.ch/cms_vis/covid19_indikatoren/) <br>
+
 
