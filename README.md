@@ -4,8 +4,8 @@
 Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) geliefert und stammen aus dem Auszahlungssystem der Arbeitslosenkassen. Die Angaben beziehen sich auf die Anzahl der Betriebe und Beschäftigten, an die für den entsprechenden Monat Kurzarbeitsentschädigungsgelder ausbezahlt wurden.<br><br>
 
 ## Methodisches 
-* Um möglichst detaillierte Daten zu veröffentlichen, werden pro Monat alle Branchen-Kategorien ausgewiesen, die für den jeweiligen Monat für mind. 10 Betriebe und mind. 100 Beschäftigte Kurzarbeitsgelder erhalten haben. Dies hat zur Folge, dass nicht immer die gleiche Anzahl Branchen ausgewiesen wird. 
-* Unter 'Alle Branchen' wird das Gesamtotal inklusive der Branchen, die aufgrund der Fallzahlen nicht separat aufgeführt sind, ausgewiesen.
+* Um möglichst detaillierte Daten zu veröffentlichen und gleichzeitig keine Rückschlüsse auf einzelne Firmen und Personen zu ermöglichen, werden pro Monat alle Branchen-Kategorien ausgewiesen, die für den jeweiligen Monat für mind. 10 Betriebe und mind. 100 Beschäftigte Kurzarbeitsgelder erhalten haben. Dies hat zur Folge, dass nicht immer die gleiche Anzahl Branchen ausgewiesen wird. 
+* Unter 'Alle Branchen' wird das Gesamtotal inklusive der Branchen, die nicht separat aufgeführt sind, ausgewiesen.
 * Es werden Betriebe bzw. Betriebsabteilungen mit Sitz im Kanton Zürich berücksichtigt (Standortprinzip, wobei der Eintrag im Betriebs- und Unternehmensregister (BUR) massgebend ist).
 * Von Kurzarbeit betroffene Beschäftigte können ihren Wohnsitz auch ausserhalb des Kantons Zürich haben.
 * Die Daten des AWAZH umfassen Zahlungen an Betriebe, insbesondere Zahlungen an Selbständige werden nicht vom AWAZH erfasst, sondern werden über die SVA Zürich im Rahmen der Erwerbsersatzordnung EO abgewickelt. 
@@ -14,7 +14,6 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 ## Variablen 
 <strong>anz_ausbezahlt_betrieb</strong> = Kurzarbeit ausbezahlt Anzahl Betriebe<br>
 <strong>anz_ausbezahlt_besch</strong> = Kurzarbeit ausbezahlt Anzahl Beschäftigte<br>
-
 
 ## Nicht mehr aktualisierte Datensätze
 Bis zum Zeitpunkt an dem erstmals Angaben zu den Auszahlungen vorlagen, wurden an dieser Stellen Daten zu den bewilligten Voranmeldungen publiziert. Diese Datenreihen werden nicht mehr fortgeführt, weil nun mit Angaben zu den Auszahlungen Daten zum tatsächlichen Ausmass der Kurzarbeit vorliegen. Informationen zum gegenwärtigen Stand der Voranmeldungen können beim Amt für Wirtschaft und Arbeit des Kantons Zürich nachgefragt werden. Die Informationen zu den alten Variablen sind im Ordner old_vars abgelegt.

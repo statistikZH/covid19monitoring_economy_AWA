@@ -26,7 +26,7 @@ library(plotly)
 library(statR)
 
 # db_connect.r
-source("~/covid19monitoring_server/db_connect.r") #Zugangsdaten
+source("P:/db_connect.r") #Zugangsdaten
 
 options(digits=4)
 ```
@@ -132,13 +132,6 @@ krzarb_bezahlt2 <- krzarb_bezahlt%>%
          share_ausbezahlt_betriebe = round(anz_ausbezahlt_betrieb/betriebe,2)) %>%
   #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
   
-<<<<<<< HEAD:Economy_AWA_ausbezahlt.Rmd
-  
-  
-  
-=======
-
->>>>>>> 608a8326e054a58c7bf2be031bc3138b6e8ac778:Economy_AWA_kurzarbeit_ausbezahlt.Rmd
   tidyr::gather('variable_short','value',-month,-year,-branche,-branche_string,-noga,-noga_codes,-noga_absch, -angestellte,-betriebe)%>%
   
   mutate(variable_long = case_when(
@@ -270,7 +263,7 @@ ggsave('plots/Economy_AWA_ausbezahlt_branchen_short_two_months.png',width = 22.8
 ```{r tweet plot}
 
 pldf2 <- pldf %>%
-  filter(month=='April')%>%
+  filter(month=='März')%>%
   filter(variable_short=='Beschäftigte')%>%
   mutate(noga_string2 = forcats::fct_reorder(noga_string, value))%>%
   mutate(noga_string2 =   forcats::fct_relevel(noga_string2, "Andere", after = 0))
@@ -311,7 +304,7 @@ ggplot(pldf2,aes(noga_string2,round(value/1000,1)))+
     
     strip.text.x = element_text(color="black", size = 30,face = "bold"))
 
-ggsave('plots/Economy_AWA_krzarb_branchen_absolut_april.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
+ggsave('plots/Economy_AWA_krzarb_branchen_absolut_maerz.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
 ```
 
 
