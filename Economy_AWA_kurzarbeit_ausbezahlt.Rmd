@@ -82,7 +82,10 @@ krzarb_bezahlt <- krzarbeit_bezahlt %>%
          noga_absch = gsub(' ','',noga_absch, fixed=T),
          noga_absch = gsub('-','',noga_absch, fixed=T),
          noga_absch = gsub('+','',noga_absch, fixed=T))%>%
-  filter(branche!='Total')
+  mutate(branche = ifelse(branche=='Total','Alle Branchen',branche))
+
+
+  #filter(branche!='Total')
 
 
 #Anzahl Betriebe und Beschäftigte aus Statent
@@ -117,16 +120,17 @@ statent2 <- statent %>%
 krzarb_bezahlt2 <- krzarb_bezahlt%>%
   left_join(statent2, by='noga_codes')%>%
   select(-monat,-jahr)%>%
+
   
-  add_row(branche = 'Total', 
-          anz_ausbezahlt_betrieb = sum(.$anz_ausbezahlt_betrieb), 
-          anz_ausbezahlt_arbeitn = sum(.$anz_ausbezahlt_arbeitn),
-          month = unique(month),
-          year = unique(year),
-          branche_string = 'Alle Branchen',
-          angestellte = sum(.$angestellte),
-          betriebe = sum(.$betriebe),
-          noga = 'Alle Branchen')%>%
+  #add_row(branche = 'Total', 
+  #        anz_ausbezahlt_betrieb = sum(.$anz_ausbezahlt_betrieb), 
+  #        anz_ausbezahlt_arbeitn = sum(.$anz_ausbezahlt_arbeitn),
+  #        month = unique(month),
+  #        year = unique(year),
+  #        branche_string = 'Alle Branchen',
+  #        angestellte = sum(.$angestellte),
+  #        betriebe = sum(.$betriebe),
+  #        noga = 'Alle Branchen')%>%
   
   mutate(share_ausbezahlt_besch  = round(anz_ausbezahlt_arbeitn/angestellte,2),
          share_ausbezahlt_betriebe = round(anz_ausbezahlt_betrieb/betriebe,2)) %>%
