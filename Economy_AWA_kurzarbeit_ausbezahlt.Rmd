@@ -214,13 +214,10 @@ pldf <-  Economy_AWA_ausbezahlt_plotstart%>%
     TRUE ~ as.character(noga_string)))%>%
   ungroup()%>%
   mutate(noga_string = forcats::fct_reorder(noga_string, desc(noga_absch)))%>%
-
-  
-
-   tidyr::gather('variable_short','value',-month,-year,-noga_absch, -noga_string, -anz_angestellte,-anz_betriebe, -share__ausbezahlt_betriebe,-share_ausbezahlt_arbeitn) %>%
+   tidyr::gather('variable_short','value',-month,-year,-noga_absch, -noga_string, -anz_angestellte,-anz_betriebe, -anz_ausbezahlt_betrieb,-anz_ausbezahlt_arbeitn) %>%
   
   mutate(label = paste0(round(value*100,1),' %'))%>%
-  mutate(variable_short = ifelse(variable_short=='anz_ausbezahlt_arbeitn','Beschäftigte','Betriebe'),
+  mutate(variable_short = ifelse(variable_short=='share_ausbezahlt_arbeitn','Beschäftigte','Betriebe'),
          month = factor(month, levels = c('April',
                                           'März')))
   
@@ -238,7 +235,7 @@ ggplot(pldf,aes(noga_string,value,fill=month))+
   
   theme_stat()+
   facet_wrap(~variable_short)+
-  scale_fill_manual(values=zhpal$zh[c(1,3)], breaks= c('März','April'))+
+  scale_fill_manual(values=zhpal$zh[c(1,3,5)], breaks= c('März','April', 'Mai'))+
     theme(legend.position = "top",
         legend.title=element_blank()) +
   theme(
@@ -256,7 +253,7 @@ ggplot(pldf,aes(noga_string,value,fill=month))+
     
     strip.text.x = element_text(color="black", size = 30,face = "bold"))
 
-ggsave('plots/Economy_AWA_ausbezahlt_branchen_short_two_months.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
+ggsave('plots/Economy_AWA_ausbezahlt_branchen_short.png',width = 22.86, height =14.128, units = c("cm"),dpi=300,scale=3)
 
 ```
 
