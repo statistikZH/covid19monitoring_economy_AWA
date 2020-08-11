@@ -182,6 +182,7 @@ write.csv(Economy_AWA_ausbezahlt,'Economy_AWA_kurzarbeit_ausbezahlt.csv',row.nam
 #View(krzarbeit)
 
 
+
 ```
 
 ```{sql noga-codes abschnitte, connection=statop, output.var = "noga_abschnitte" }
