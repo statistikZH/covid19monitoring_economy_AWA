@@ -133,7 +133,9 @@ krzarb_bezahlt2 <- krzarb_bezahlt%>%
   #        noga = 'Alle Branchen')%>%
   
   mutate(share_ausbezahlt_besch  = round(anz_ausbezahlt_arbeitn/angestellte,2),
-         share_ausbezahlt_betriebe = round(anz_ausbezahlt_betrieb/betriebe,2)) %>%
+         share_ausbezahlt_betriebe = round(anz_ausbezahlt_betrieb/betriebe,2),
+         branche_string = ifelse(branche_string == 'Total','Alle Branchen', branche_string),
+         noga = ifelse(noga == 'Total','Alle Branchen',noga)) %>%
   #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
   
   tidyr::gather('variable_short','value',-month,-year,-branche,-branche_string,-noga,-noga_codes,-noga_absch, -angestellte,-betriebe)%>%
