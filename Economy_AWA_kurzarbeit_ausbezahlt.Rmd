@@ -33,9 +33,9 @@ options(digits=4)
 
 ```{sql connection=statop, output.var = "statent"}
 --kein öffentlicher Datensatz
-select municipality_cd, noga082, statyear, sum(emptot) as emptot, sum(empfte) as empfte, count(*) as betriebe 
+select noga082, statyear, sum(emptot) as emptot, sum(empfte) as empfte, count(*) as betriebe 
 from datashop.STATENT_AST_MV where statyear = 2017 and canton_cd = 'ZH'
-group by municipality_cd, statyear, noga082, emptot, empfte
+group by statyear, noga082, emptot, empfte
 
 ```
 
@@ -152,7 +152,8 @@ krzarb_bezahlt2 <- krzarb_bezahlt%>%
          source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
          update = 'monatlich',
          public = 'ja') %>%
-    select(topic,year,month,value,variable_short,variable_long,location,branche_string,noga,public,description,unit,source,update)
+    select(topic,year,month,value,variable_short,variable_long,location,branche_string,noga,public,description,unit,source,update)%>%
+  filter(branche_string != 'Übrige')
 
 datalist[[counter]] <- krzarb_bezahlt2[krzarb_bezahlt2$noga!='Rest' & !krzarb_bezahlt2$variable_short %in% c('share_ausbezahlt_besch','share_ausbezahlt_betriebe') ,]
 statentlist[[counter]] <- statent2
@@ -177,8 +178,6 @@ Economy_AWA_ausbezahlt_plotstart <- do.call(rbind, datalist_plot)
 #Datensatz speichern
 write.csv(Economy_AWA_ausbezahlt,'Economy_AWA_kurzarbeit_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
 #View(krzarbeit)
-
-
 
 ```
 
