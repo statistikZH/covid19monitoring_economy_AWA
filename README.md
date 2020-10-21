@@ -9,7 +9,7 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 * Es werden Betriebe bzw. Betriebsabteilungen mit Sitz im Kanton Zürich berücksichtigt (Standortprinzip, wobei der Eintrag im Betriebs- und Unternehmensregister (BUR) massgebend ist).
 * Von Kurzarbeit betroffene Beschäftigte können ihren Wohnsitz auch ausserhalb des Kantons Zürich haben.
 * Die Daten des AWAZH umfassen Zahlungen an Betriebe, insbesondere Zahlungen an Selbständige werden nicht vom AWAZH erfasst, sondern werden über die SVA Zürich im Rahmen der Erwerbsersatzordnung EO abgewickelt. 
-* Da die Betriebe eine Kontrollperiode bis zu 3 Monate rückwirkend abrechnen können, sind die Daten erst mit 3-monatiger Verspätung stabil und werden deshalb auch nicht früher veröffentlicht. Rückwirkende Anpassungen sind jedoch weiterhin möglich.
+* Da die Betriebe eine Kontrollperiode bis zu 3 Monate rückwirkend abrechnen können, sind die Daten erst mit 3-monatiger Verspätung einigermassen stabil und werden deshalb auch nicht früher veröffentlicht. Rückwirkende Anpassungen sind jedoch weiterhin möglich. Es werden deshalb monatlich die Daten zu allen ausgewiesenen Monaten aktualisert.
 
 ## Variablen 
 <strong>anz_ausbezahlt_betrieb</strong> = Kurzarbeit ausbezahlt Anzahl Betriebe<br>
