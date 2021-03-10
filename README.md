@@ -10,6 +10,7 @@ Die Daten werden vom Amt für Wirtschaft und Arbeit des Kantons Zürich (AWAZH) 
 * Von Kurzarbeit betroffene Beschäftigte können ihren Wohnsitz auch ausserhalb des Kantons Zürich haben.
 * Die Daten des AWAZH umfassen Zahlungen an Betriebe, insbesondere Zahlungen an Selbständige werden nicht vom AWAZH erfasst, sondern werden über die SVA Zürich im Rahmen der Erwerbsersatzordnung EO abgewickelt. 
 * Da die Betriebe eine Kontrollperiode bis zu 3 Monate rückwirkend abrechnen können, sind die Daten erst mit 3-monatiger Verspätung einigermassen stabil und werden deshalb auch nicht früher veröffentlicht. Rückwirkende Anpassungen sind jedoch weiterhin möglich. Es werden deshalb monatlich die Daten zu allen ausgewiesenen Monaten aktualisert.
+* Im Februar 2021 erhielten für Kurzarbeitsentschädigungen zugelassene Betriebe für die Monate September bis November 2020 teilweise Nachzahlungen. Grund dafür ist eine angepasste Regelung der Karenztage. Die Daten wurden bereinigt, um die doppelte Erfassung von Betrieben zu verhindern. Da die Betriebe zum Zeitpunkt der Nachzahlung noch für die Kontrollperiode November abrechnen konnten, kann nicht ausgeschlossen werden, dass einige wenige Abrechnungen zuviel herausgerechnet wurden.   
 
 ## Variablen 
 <strong>anz_ausbezahlt_betrieb</strong> = Kurzarbeit ausbezahlt Anzahl Betriebe<br>
