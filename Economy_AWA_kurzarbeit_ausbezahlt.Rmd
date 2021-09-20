@@ -1,0 +1,112 @@
+---
+title: "Economy_AWA_ausbezahlt"
+subtitle: '-'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    theme: lumen
+    highlight: tango
+---
+
+
+```{r Vorbereitungen, echo=T,echo = F,collapse=TRUE, warning=FALSE,  message=FALSE}
+rm(list=ls())
+options(stringsAsFactors = F)
+
+### Packages 
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(plotly)
+library(statR)
+
+# db_connect.r
+source("P:/db_connect.r") #Zugangsdaten
+
+options(digits=4)
+```
+
+
+```{r Ausbezahlt: Daten einlesen und allgemeine Aufbereitungen,echo = T}
+
+
+sheets <- excel_sheets('KAE Ausz KonPe KTZH.xlsx')
+datalist <- list()
+statentlist <- list()
+datalist_plot <-list()
+
+counter <- 0
+
+for(sh in sheets){
+counter <- counter + 1
+krzarbeit_bezahlt <- read_xlsx('KAE Ausz KonPe KTZH.xlsx',sheet =sh,skip = 1, na = c("NA",""))
+month_start <-  names(krzarbeit_bezahlt)[2]
+month <- gsub('[[:digit:]]','',month_start)
+month <- gsub(' ...','',month)
+
+year <- as.numeric(sub("\\D*(\\d{4}).*", "\\1", month_start))
+
+krzarb_bezahlt <- krzarbeit_bezahlt %>%
+  mutate(month = names(.)[2]) %>%
+  mutate(month = gsub('[[:digit:]]','',month))%>%
+  mutate(month = gsub(' ...','',month))%>%
+  mutate(year = year)%>%
+  select(colnames(.)[c(grep('[a-z]',colnames(.)))])%>%
+  rename_all(funs(c('branche','anz_ausbezahlt_betrieb','anz_ausbezahlt_arbeitn','month','year')))%>%
+  
+  filter(!is.na(anz_ausbezahlt_betrieb) | !is.na(anz_ausbezahlt_arbeitn))%>%
+  
+  mutate(branche_string = sub(".*: ", "", branche))%>%
+  mutate(noga = sub(":.*", "", branche)) %>%
+  mutate(noga_codes = tolower(noga),
+         noga_codes =  gsub('[a-z] ','',noga_codes),
+         noga_codes = gsub('-',':',noga_codes, fixed=T),
+         noga_codes = gsub('+',',',noga_codes, fixed=T))%>%
+  mutate(noga_absch = noga,
+         noga_absch =  gsub('[0-9]','',noga_absch),
+         noga_absch = gsub(':','',noga_absch, fixed=T),
+         noga_absch = gsub(' ','',noga_absch, fixed=T),
+         noga_absch = gsub('-','',noga_absch, fixed=T),
+         noga_absch = gsub('+','',noga_absch, fixed=T))%>%
+  mutate(branche = ifelse(branche=='Total','Alle Branchen',branche))
+
+
+# Mit Statent verbinden
+krzarb_bezahlt2 <- krzarb_bezahlt%>%
+  mutate(branche_string = ifelse(branche_string == 'Total','Alle Branchen', branche_string),
+         noga = ifelse(noga == 'Total','Alle Branchen',noga)) %>%
+  tidyr::gather('variable_short','value',-month,-year,-branche,-branche_string,-noga,-noga_codes,-noga_absch,)%>%
+  mutate(variable_long = case_when(
+    variable_short=='anz_ausbezahlt_betrieb' ~ 'Kurzarbeit ausbezahlt Anzahl Betriebe',
+    variable_short=='anz_ausbezahlt_arbeitn' ~ 'Kurzarbeit ausbezahlt Anzahl Beschäftigte',
+     TRUE ~ 'NA'),
+    variable_short = ifelse(variable_short == 'anz_ausbezahlt_arbeitn', 'anz_ausbezahlt_besch', variable_short),
+         description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
+         location = 'ZH',
+         topic = 'Wirtschaft',
+         unit = ifelse(grepl('share_',variable_short),'Anteil','Anzahl'),
+         source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
+         update = 'monatlich',
+         public = 'ja') %>%
+    select(topic,year,month,value,variable_short,variable_long,location,branche_string,noga,public,description,unit,source,update)%>%
+  filter(branche_string != 'Übrige')
+
+datalist[[counter]] <- krzarb_bezahlt2[krzarb_bezahlt2$noga!='Rest' & !krzarb_bezahlt2$variable_short %in% c('share_ausbezahlt_besch','share_ausbezahlt_betriebe') ,]
+
+datalist_plot[[counter]] <- krzarb_bezahlt
+}
+
+Economy_AWA_ausbezahlt <- do.call(rbind, datalist)
+
+
+#Datensatz speichern
+#write.csv(Economy_AWA_ausbezahlt,'Economy_AWA_kurzarbeit_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
+#View(krzarbeit)
+
+```
+

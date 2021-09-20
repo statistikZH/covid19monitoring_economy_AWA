@@ -1,0 +1,130 @@
+---
+title: "Economy_AWA"
+subtitle: '-'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    theme: lumen
+    highlight: tango
+---
+
+#Dieses Skript ist nicht funktionstüchtig.
+
+```{r Vorbereitungen, echo=T,echo = F,collapse=TRUE, warning=FALSE,  message=FALSE}
+rm(list=ls())
+options(stringsAsFactors = F)
+
+### Packages 
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(plotly)
+library(statR)
+
+# db_connect.r
+source("P:/db_connect.r")
+
+options(digits=4)
+```
+
+```{r Daten einlesen und allgemeine Aufbereitungen,echo = T}
+krzarbeit <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
+  slice(-c(1,2)) %>%
+  rename_all(funs(c('date','kum_kurzarbeitzh_bew_betrieb','kum_kurzarbeitzh_bew_arbeitn')))%>%
+  mutate(date = as.POSIXct(date, format = '%Y%m%d'))%>%
+  #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
+  tidyr::gather('variable_short','value',-date)%>%
+  mutate(variable_long = ifelse(variable_short=='kum_kurzarbeitzh_bew_betrieb','Kumulierte bewilligte Voranmeldungen Kurzarbeit Betriebe','Kumulierte bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn.'),
+         description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
+         location = 'ZH',
+         topic = 'Wirtschaft',
+         unit = 'Anzahl',
+         source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
+         update = 'wöchentlich',
+         public = 'ja') %>%
+    select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
+
+#Datensatz speichern
+write.csv(krzarbeit,'Economy_AWA.csv',row.names=F, fileEncoding = "UTF-8")
+#View(krzarbeit)
+
+#Bewilligte Gesuche: 20200301 - 20200405
+krzarbeit_bis5April <- read_xlsx('KAE Voranm KTZH.xlsx',sheet ='KArb VA U AN täglich Kanton ...') %>%
+  slice(2) %>%
+  rename_all(funs(c('date','kum_kurzarbeitzh_bew_betrieb_bis_5april','kum_kurzarbeitzh_bew_arbeitn_bis_5april')))%>%
+  mutate(date = as.POSIXct(substring(date,12,19), format = '%Y%m%d'))%>%
+  #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
+  tidyr::gather('variable_short','value',-date)%>%
+  mutate(variable_long = ifelse(variable_short=='kum_kurzarbeitzh_bew_betrieb_bis_5april','Kumuliertes Total Bewilligte Voranmeldungen Kurzarbeit Betriebe bis 5 April 2020','Kumuliertes Total Bewilligte Voranmeldungen Kurzarbeit voraussichtlich betroffene Arbeitn. bis 5. April 2020'),
+         description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
+         location = 'ZH',
+         topic = 'Wirtschaft',
+         unit = 'Anzahl',
+         source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
+         update = 'wöchentlich',
+         public = 'ja') %>%
+    select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
+
+write.csv(krzarbeit_bis5April,'Economy_AWA_total_bis_5april.csv',row.names=F, fileEncoding = "UTF-8")
+```
+
+
+
+```{r Ausbezahlt: Daten einlesen und allgemeine Aufbereitungen,echo = T}
+krzarbeit_bezahlt <- read_xlsx('KAE Ausz KonPe KTZH.xlsx',sheet ='Tabelle1',skip = 1)
+month <-  names(krzarbeit_bezahlt)[2]
+year <- as.numeric(sub("\\D*(\\d{4}).*", "\\1", month))
+
+krzarb_bezahlt <- krzarbeit_bezahlt %>%
+  mutate(month = names(.)[2]) %>%
+  mutate(month = gsub('[[:digit:]]','',month))%>%
+  mutate(month = gsub(' ...','',month))%>%
+  mutate(year = year)%>%
+  select(colnames(.)[c(grep('[a-z]',colnames(.)))])%>%
+  rename_all(funs(c('branche','kurzarbeitzh_ausbezahlt_betrieb','kurzarbeitzh_ausbezahlt_arbeitn','month','year')))%>%
+  mutate(branche_string = sub(".*: ", "", branche))%>%
+  mutate(noga = sub(":.*", "", branche)) %>%
+  mutate(noga_codes = tolower(noga),
+         noga_codes =  gsub('[a-z] ','',noga_codes),
+         noga_codes = gsub('-',':',noga_codes, fixed=T),
+         noga_codes = gsub('+',',',noga_codes, fixed=T))%>%
+  mutate(noga_absch = noga,
+         noga_absch =  gsub('[0-9]','',noga_absch),
+         noga_absch = gsub(':','',noga_absch, fixed=T),
+         noga_absch = gsub(' ','',noga_absch, fixed=T),
+         noga_absch = gsub('-','',noga_absch, fixed=T),
+         noga_absch = gsub('+','',noga_absch, fixed=T))%>%
+  filter(branche!='Total')
+
+```
+
+```{r Infos joinen}
+krzarb_bezahlt2 <- krzarb_bezahlt%>%
+  left_join(statent, by='noga_codes')%>% #Das Objekt statent wird aus der DB abgefragt. Wie, kann aufgrund von Sicherheitsüberlegungen hier nicht gezeigt werden.
+  mutate(share_arbeitn = kurzarbeitzh_ausbezahlt_arbeitn/angestellte,
+         share_betriebe = kurzarbeitzh_ausbezahlt_betrieb/betriebe) %>%
+  #tidyr::pivot_longer(-date,names_to='variable_short',values_to='value')%>%
+  tidyr::gather('variable_short','value',-month,-year,-branche,-branche_string,-noga,-noga_codes,-noga_absch, -angestellte,-betriebe)%>%
+  mutate(variable_long = ifelse(variable_short=='kurzarbeitzh_ausbezahlt_betrieb','Kurzarbeit ausbezahlt Anzahl Betriebe','Kurzarbeit ausbezahlt Anzahl Arbeitnehmende'),
+         description = 'https://github.com/statistikZH/covid19monitoring_economy_AWA',
+         location = 'ZH',
+         topic = 'Wirtschaft',
+         unit = 'Anzahl',
+         source = 'Amt für Wirtschaft und Arbeit Kanton Zürich',
+         update = 'monatlich',
+         public = 'ja',
+         accounting_period = paste0(month,' ',year)) %>%
+    select(topic,year,month,value,variable_short,variable_long,location,branche,branche_string,noga,noga_codes,public,description,unit,source,update)
+
+#Datensatz speichern
+write.csv(krzarb_bezahlt2,'Economy_AWA_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
+#View(krzarbeit)
+
+```
+
+
