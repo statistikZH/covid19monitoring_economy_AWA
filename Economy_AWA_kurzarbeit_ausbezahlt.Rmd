@@ -105,7 +105,7 @@ Economy_AWA_ausbezahlt <- do.call(rbind, datalist)
 
 
 #Datensatz speichern
-#write.csv(Economy_AWA_ausbezahlt,'Economy_AWA_kurzarbeit_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
+write.csv(Economy_AWA_ausbezahlt,'Economy_AWA_kurzarbeit_ausbezahlt.csv',row.names=F, fileEncoding = "UTF-8")
 #View(krzarbeit)
 
 ```
